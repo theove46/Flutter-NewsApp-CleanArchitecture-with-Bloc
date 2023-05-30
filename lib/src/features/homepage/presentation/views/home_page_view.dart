@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_api_clean_architecture_and_bloc/src/core/theme/colors.dart';
 import 'package:news_api_clean_architecture_and_bloc/src/core/widgets/action_button.dart';
 import 'package:news_api_clean_architecture_and_bloc/src/core/widgets/app_bar.dart';
+import 'package:news_api_clean_architecture_and_bloc/src/core/widgets/shimer_effect.dart';
 import 'package:news_api_clean_architecture_and_bloc/src/features/homepage/presentation/bloc/home_page_bloc.dart';
 import 'package:news_api_clean_architecture_and_bloc/src/features/homepage/presentation/widgets/news_card.dart';
 import 'package:news_api_clean_architecture_and_bloc/src/features/homepage/presentation/widgets/snack_bar.dart';
@@ -40,9 +41,7 @@ class _HomePageState extends State<HomePage> {
         },
         builder: (context, state) {
           if (state is HomePageInitialState || state is HomePageLoadingState) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const ShimerEffect();
           } else if (state is HomePageLoadedState) {
             final news = state.news;
 

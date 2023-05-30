@@ -10,8 +10,9 @@ abstract class HomePageDataSource {
 class HomePageDataSourceImpl implements HomePageDataSource {
   @override
   Future<List<HomePageEntity>> getHomePageNews() async {
+    await Future.delayed(const Duration(seconds: 2));
     const url =
-        'https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=674dd4773b7542e1b70ac639b6806a54';
+        'https://newsapi.org/v2/top-headlines?q=us&apiKey=674dd4773b7542e1b70ac639b6806a54';
     final uri = Uri.parse(url);
     final response = await http.get(uri);
 
