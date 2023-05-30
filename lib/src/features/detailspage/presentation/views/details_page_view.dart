@@ -6,7 +6,6 @@ import 'package:news_api_clean_architecture_and_bloc/src/core/widgets/action_but
 import 'package:news_api_clean_architecture_and_bloc/src/core/widgets/app_bar.dart';
 import 'package:news_api_clean_architecture_and_bloc/src/core/widgets/text_style.dart';
 import 'package:news_api_clean_architecture_and_bloc/src/features/detailspage/presentation/bloc/details_page_bloc.dart';
-import 'package:news_api_clean_architecture_and_bloc/src/features/homepage/data/models/home_models.dart';
 import 'package:news_api_clean_architecture_and_bloc/src/features/homepage/domain/entities/homepage_entity.dart';
 import 'package:news_api_clean_architecture_and_bloc/src/features/homepage/presentation/widgets/snack_bar.dart';
 
