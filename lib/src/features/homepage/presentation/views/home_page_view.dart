@@ -6,6 +6,7 @@ import 'package:news_api_clean_architecture_and_bloc/src/core/widgets/action_but
 import 'package:news_api_clean_architecture_and_bloc/src/core/widgets/app_bar.dart';
 import 'package:news_api_clean_architecture_and_bloc/src/core/widgets/shimer_effect.dart';
 import 'package:news_api_clean_architecture_and_bloc/src/features/homepage/presentation/bloc/home_page_bloc.dart';
+import 'package:news_api_clean_architecture_and_bloc/src/features/homepage/presentation/bloc/home_page_state.dart';
 import 'package:news_api_clean_architecture_and_bloc/src/features/homepage/presentation/widgets/news_card.dart';
 import 'package:news_api_clean_architecture_and_bloc/src/features/homepage/presentation/widgets/snack_bar.dart';
 
@@ -35,14 +36,15 @@ class _HomePageState extends State<HomePage> {
       ),
       body: BlocConsumer<HomePageBloc, HomePageState>(
         listener: (context, state) {
-          if (state is HomePageErrorState) {
-            SnackBarShow(context, state.errorMessage);
+          if (state.status == HomePageStatus.error) {
+            SnackBarShow(context, "Failed to load the news");
           }
         },
         builder: (context, state) {
-          if (state is HomePageInitialState || state is HomePageLoadingState) {
+          if (state.status == HomePageStatus.initial ||
+              state.status == HomePageStatus.loading) {
             return const ShimerEffect();
-          } else if (state is HomePageLoadedState) {
+          } else if (state.status == HomePageStatus.loaded) {
             final news = state.news;
 
             return ListView.builder(

@@ -1,27 +1,32 @@
-part of 'home_page_bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:news_api_clean_architecture_and_bloc/src/features/homepage/domain/entities/homepage_entity.dart';
 
-abstract class HomePageState extends Equatable {
-  const HomePageState();
-  @override
-  List<Object> get props => [];
-}
+enum HomePageStatus { initial, loading, loaded, error }
 
-class HomePageInitialState extends HomePageState {}
+class HomePageState extends Equatable {
+  const HomePageState({
+    this.status = HomePageStatus.initial,
+    this.news = const <HomePageEntity>[],
+  });
 
-class HomePageLoadingState extends HomePageState {}
-
-class HomePageLoadedState extends HomePageState {
+  final HomePageStatus status;
   final List<HomePageEntity> news;
 
-  const HomePageLoadedState(this.news);
-  @override
-  List<Object> get props => [news];
-}
+  HomePageState copyWith({
+    HomePageStatus? status,
+    List<HomePageEntity>? news,
+  }) {
+    return HomePageState(
+      status: status ?? this.status,
+      news: news ?? this.news,
+    );
+  }
 
-class HomePageErrorState extends HomePageState {
-  final String errorMessage;
-
-  const HomePageErrorState(this.errorMessage);
   @override
-  List<Object> get props => [errorMessage];
+  String toString() {
+    return 'PostState { status: $status, news: ${news.length} }';
+  }
+
+  @override
+  List<Object?> get props => [status, news];
 }

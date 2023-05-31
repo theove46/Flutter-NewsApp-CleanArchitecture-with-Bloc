@@ -3,22 +3,22 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_api_clean_architecture_and_bloc/src/features/homepage/domain/entities/homepage_entity.dart';
 import 'package:news_api_clean_architecture_and_bloc/src/features/homepage/domain/usecases/homepage_usecase.dart';
+import 'package:news_api_clean_architecture_and_bloc/src/features/homepage/presentation/bloc/home_page_state.dart';
 part 'home_page_event.dart';
-part 'home_page_state.dart';
 
 class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
   final HomePageUseCase homePageUseCase;
-  HomePageBloc(this.homePageUseCase) : super(HomePageInitialState()) {
+  HomePageBloc(this.homePageUseCase)
+      : super(const HomePageState(status: HomePageStatus.initial)) {
     on<FetchHomePageEvent>((event, emit) async {
       try {
-        emit(HomePageLoadingState());
+        emit(state.copyWith(status: HomePageStatus.initial));
         final news = await homePageUseCase.getHomePageNews();
 
-        emit(HomePageLoadedState(news));
+        emit(state.copyWith(status: HomePageStatus.loaded, news: news));
       } catch (e) {
-        emit(HomePageErrorState(e.toString()));
+        emit(state.copyWith(status: HomePageStatus.error));
         print(e.toString());
       }
     });

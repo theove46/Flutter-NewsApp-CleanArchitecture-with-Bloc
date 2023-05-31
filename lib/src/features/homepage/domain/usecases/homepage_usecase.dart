@@ -6,11 +6,7 @@ class HomePageUseCase {
 
   HomePageUseCase(this.homePageRepository);
 
-  Future<List<HomePageEntity>> getHomePageNews() async {
-    try {
-      return await homePageRepository.getHomePageNews();
-    } catch (e) {
-      throw Exception('Failed to fetch top headlines');
-    }
+  Future<List<HomePageEntity>> getHomePageNews() {
+    return homePageRepository.getHomePageNews();
   }
 }
